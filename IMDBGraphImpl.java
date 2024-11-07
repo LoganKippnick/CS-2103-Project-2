@@ -9,7 +9,7 @@ public class IMDBGraphImpl implements IMDBGraph {
 	// this might be: "/Users/sarah/IMDB". On Windows, this might be:
 	// "C:/Users/sarah/IMDB". (These are made-up examples but give a sense
 	// of the required syntax.)
-	public static final String IMDB_DIRECTORY = "/Users/jake/Courses/CS2103/Graph/IMDB";
+	public static final String IMDB_DIRECTORY = "C:/Users/lgkip/Downloads";
 	private static final int PROGRESS_FREQUENCY = 10000;
 
 	private static class IMDBNode implements Node {
@@ -108,6 +108,13 @@ public class IMDBGraphImpl implements IMDBGraph {
 					// Also set the actor to be a neighbor of each of the actor's movies.
 					final IMDBNode actorNode = new IMDBNode(finalName);
 					// TODO: finish me...
+
+					_actorNamesToNodes.put(finalName, actorNode);
+
+					for (String movie : knownFor) {
+						actorNode.getNeighbors().add(_movieNamesToNodes.get(idsToTitles.get(movie)));
+					}
+
 				}
 			}
 		}
@@ -189,8 +196,10 @@ public class IMDBGraphImpl implements IMDBGraph {
 	 */
 	public static void main (String[] args) {
 		try {
-			final IMDBGraph graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/name.basics.tsv.gz",
-			                                          IMDB_DIRECTORY + "/title.basics.tsv.gz");
+//			final IMDBGraph graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/name.basics.tsv.gz",
+//			                                          IMDB_DIRECTORY + "/title.basics.tsv.gz");
+			final IMDBGraphImpl graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/testActors.tsv",
+														  IMDB_DIRECTORY + "/testMovies.tsv");
 			System.out.println(graph.getActors().size());
 
 			final GraphSearchEngine graphSearcher = new GraphSearchEngineImpl();
@@ -201,6 +210,14 @@ public class IMDBGraphImpl implements IMDBGraph {
 				System.out.println("Actor 2:");
 				final String actorName2 = s.nextLine().trim();
 				final Node node1 = graph.getActor(actorName1);
+
+				for (Node neighbor : node1.getNeighbors()) {
+					System.out.println(neighbor.getName());
+				}
+
+
+
+
 				final Node node2 = graph.getActor(actorName2);
 				if (node1 != null && node2 != null) {
 					List<Node> shortestPath = graphSearcher.findShortestPath(node1, node2);
