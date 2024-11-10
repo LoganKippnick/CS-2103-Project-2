@@ -107,14 +107,16 @@ public class IMDBGraphImpl implements IMDBGraph {
 					// and set the neighbors of the new actor node appropriately.
 					// Also set the actor to be a neighbor of each of the actor's movies.
 					final IMDBNode actorNode = new IMDBNode(finalName);
-					// TODO: finish me...
 
 					_actorNamesToNodes.put(finalName, actorNode);
 
-					for (String movie : knownFor) {
-						actorNode.getNeighbors().add(_movieNamesToNodes.get(idsToTitles.get(movie)));
+					for (String movieID : knownFor) {
+						IMDBNode movieNode = _movieNamesToNodes.get(idsToTitles.get(movieID));
+						if (movieNode != null) {
+							actorNode.getNeighbors().add(movieNode);
+							movieNode.getNeighbors().add(actorNode);
+						}
 					}
-
 				}
 			}
 		}
@@ -196,10 +198,13 @@ public class IMDBGraphImpl implements IMDBGraph {
 	 */
 	public static void main (String[] args) {
 		try {
-//			final IMDBGraph graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/name.basics.tsv.gz",
-//			                                          IMDB_DIRECTORY + "/title.basics.tsv.gz");
-			final IMDBGraphImpl graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/testActors.tsv",
-														  IMDB_DIRECTORY + "/testMovies.tsv");
+			final IMDBGraph graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/name.basics.tsv",
+			                                          IMDB_DIRECTORY + "/title.basics.tsv");
+//			final IMDBGraphImpl graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/someActors.tsv",
+//														  IMDB_DIRECTORY + "/someMovies.tsv");
+//			final IMDBGraphImpl graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/testActors.tsv",
+//														  IMDB_DIRECTORY + "/testMovies.tsv");
+
 			System.out.println(graph.getActors().size());
 
 			final GraphSearchEngine graphSearcher = new GraphSearchEngineImpl();
@@ -207,18 +212,20 @@ public class IMDBGraphImpl implements IMDBGraph {
 				final Scanner s = new Scanner(System.in);
 				System.out.println("Actor 1:");
 				final String actorName1 = s.nextLine().trim();
-				System.out.println("Actor 2:");
-				final String actorName2 = s.nextLine().trim();
-				final Node node1 = graph.getActor(actorName1);
 
-				for (Node neighbor : node1.getNeighbors()) {
-					System.out.println(neighbor.getName());
+				final Node node1 = graph.getActor(actorName1);
+				if (node1 == null) {
+					System.out.println("Null");
 				}
 
-
-
+				System.out.println("Actor 2:");
+				final String actorName2 = s.nextLine().trim();
 
 				final Node node2 = graph.getActor(actorName2);
+				if (node2 == null) {
+					System.out.println("Null");
+				}
+
 				if (node1 != null && node2 != null) {
 					List<Node> shortestPath = graphSearcher.findShortestPath(node1, node2);
 					System.out.println(node1 + " " + node2);

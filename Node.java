@@ -16,4 +16,5 @@ interface Node {
 	 * @return the Collection of all the neighbors of this Node.
 	 */
 	public Collection<? extends Node> getNeighbors ();
+
 }
