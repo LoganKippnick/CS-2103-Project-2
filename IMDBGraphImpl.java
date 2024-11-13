@@ -200,10 +200,6 @@ public class IMDBGraphImpl implements IMDBGraph {
 		try {
 			final IMDBGraph graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/name.basics.tsv",
 			                                          IMDB_DIRECTORY + "/title.basics.tsv");
-//			final IMDBGraphImpl graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/someActors.tsv",
-//														  IMDB_DIRECTORY + "/someMovies.tsv");
-//			final IMDBGraphImpl graph = new IMDBGraphImpl(IMDB_DIRECTORY + "/testActors.tsv",
-//														  IMDB_DIRECTORY + "/testMovies.tsv");
 
 			System.out.println(graph.getActors().size());
 
@@ -214,22 +210,27 @@ public class IMDBGraphImpl implements IMDBGraph {
 				final String actorName1 = s.nextLine().trim();
 
 				final Node node1 = graph.getActor(actorName1);
+
+				// print message if actor not in database
 				if (node1 == null) {
-					System.out.println("Null");
+					System.out.println("Actor not found");
 				}
 
 				System.out.println("Actor 2:");
 				final String actorName2 = s.nextLine().trim();
 
 				final Node node2 = graph.getActor(actorName2);
+
+				// print message if actor not in database
 				if (node2 == null) {
-					System.out.println("Null");
+					System.out.println("Actor not found");
 				}
 
 				if (node1 != null && node2 != null) {
 					List<Node> shortestPath = graphSearcher.findShortestPath(node1, node2);
 					System.out.println(node1 + " " + node2);
 					if (shortestPath != null) {
+						// print nodes in path
 						for (Node node : shortestPath) {
 							System.out.println(node.getName());
 						}
