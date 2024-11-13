@@ -10,7 +10,13 @@ public class GraphSearchEngineImpl implements GraphSearchEngine {
 	public GraphSearchEngineImpl () {
 	}
 
-	// TODO documentation
+	/**
+	 * Finds a shortest path between the given two Nodes in the Graph using a breadth-first search algorithm.
+	 *
+	 * @param s the start node.
+	 * @param t the target node.
+	 * @return a list of nodes in a shortest path.
+	 */
 	public List<Node> findShortestPath (Node s, Node t) {
 		// if either of the parameters are null, no need to try to run the algorithm
 		if (s == null || t == null) {
@@ -21,7 +27,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine {
 		LinkedList<Node> visited = new LinkedList<Node>();
 		HashMap<Node, Node> predecessor = new HashMap<Node, Node>();
 
-		// initialize by adding starting node
+		// initialize BFS by adding starting node
 		queue.add(s);
 		visited.add(s);
 		predecessor.put(s, null);
@@ -44,6 +50,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine {
 				return path;
 			}
 			else {
+				// add neighbors of current node to end of queue
 				for (Node neighbor : current.getNeighbors()) {
 					if (!visited.contains(neighbor)) {
 						queue.add(neighbor);

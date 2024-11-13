@@ -2,6 +2,10 @@ tconst	titleType	primaryTitle	originalTitle	isAdult	startYear	endYear	runtimeMin
 t1	movie	Blah1	Blah1	0	1900	1901	90	horror
 t2	movie	Blah2	Blah2	0	1900	1901	90	horror
 t3	movie	Blah3	Blah3	0	1900	1901	90	horror
-t4  movie   Blah4   Blah4   0   1900    1901    90  horror
-t5  movie   Blah5   Blah5   0   1900    1901    90  horror
-
+t4	movie	Blah4	Blah4	0	1900	1901	90	horror
+t5	movie	Blah5	Blah5	0	1900	1901	90	horror
+t6	movie	Blah6	Blah6	0	1900	1901	90	horror
+t7	movie	Blah7	Blah7	0	1900	1901	90	horror
+t8	movie	Blah8	Blah8	0	1900	1901	90	horror
+t9	movie	Blah9	Blah9	0	1900	1901	90	horror
+d1	documentary	NotBlah	NotBlah	0	1900	1901	90	horror documentary

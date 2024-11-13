@@ -12,10 +12,19 @@ public class IMDBGraphImpl implements IMDBGraph {
 	public static final String IMDB_DIRECTORY = "C:/Users/lgkip/Downloads";
 	private static final int PROGRESS_FREQUENCY = 10000;
 
+	/**
+	 * Interface for a node in an IMDB graph; each Node must have a name and a Collection of neighbors, which are other
+	 * IMDBNodes. For example, the neighbors of an actress/actor node will be movies, and vice-versa.
+	 */
 	private static class IMDBNode implements Node {
 		private final String _name;
 		private final Collection<IMDBNode> _neighbors;
 
+		/**
+		 * Constructs an IMDBNode, which is an actor or movie.
+		 *
+		 * @param name the name of the actor or title of the movie.
+		 */
 		public IMDBNode (String name) {
 			_name = name;
 
